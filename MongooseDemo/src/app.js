@@ -7,7 +7,11 @@ mongoose.connect("mongodb://localhost:27017/studentDB")
 //schema gives the structure to the document
 
 const studnetSchema = new mongoose.Schema({
-    sId:Number,
+    sId:{
+        type: Number,
+        require:true,
+        unique:true
+    },
     sName: String,
     sCourse:String,
     sDept: String
@@ -48,15 +52,23 @@ const insertDoc = async () =>{
 
 //Read Documents
 const readDoc = async () => {
-    const result = await Student.find({ sDept: "IT" })
+    const result = await Student.find().select({sName: 0})
     console.log(result)
     // .catch(error => console.log(error))
 }
 //readDoc();
 
 //Update Documents
-Student.updateOne({sDept:"Computer"}, {
-    $set:{sCourse:"BE.CE"}
-})
-.then(result=>console.log(result))
-.catch(error => console.log(error));
+// Student.updateOne({sDept:"Computer"}, {
+//     $set:{sCourse:"BE.CE"}
+// })
+// .then(result=>console.log(result))
+// .catch(error => console.log(error));
+
+//Delete Document
+// const deleteOne = async () =>{
+//     const result = await Student.findByIdAndDelete({_id : "6333c9357cdc81d8bf655ebf"})
+//     console.log(result);
+// }
+
+// deleteOne();
